@@ -1,0 +1,325 @@
+{
+  "n_train": 3216,
+  "n_test": 804,
+  "target_rate_train": 0.15702736318407962,
+  "target_rate_test": 0.15671641791044777,
+  "selection": {
+    "top_cv_pr_auc": 0.3614,
+    "top_model": "Gradient boosting (HistGB)",
+    "top_features": "core + clinical extras",
+    "one_se": 0.00975991803244269,
+    "n_within_1se": 4
+  },
+  "chosen_model": "Gradient boosting (HistGB)",
+  "chosen_features": "core (model_table spec)",
+  "holdout": [
+    {
+      "slice": "All patients",
+      "n": 804,
+      "treated_rate": 0.15671641791044777,
+      "roc_auc": 0.7659491033384839,
+      "pr_auc": 0.33578577660920056,
+      "brier": 0.11705204792176262,
+      "log_loss": 0.37575211261685765
+    },
+    {
+      "slice": "Eligible (age>12 & high-risk)",
+      "n": 501,
+      "treated_rate": 0.21357285429141717,
+      "roc_auc": 0.7248090516627923,
+      "pr_auc": 0.35830371009601863,
+      "brier": 0.15255895359419228,
+      "log_loss": 0.46553199375630056
+    }
+  ],
+  "baselines": {
+    "prevalence_brier_all": 0.13215647895472882,
+    "age_only_auc_all": 0.6698740459802407
+  },
+  "holdout_ci95": {
+    "roc_auc": [
+      0.7211221383729606,
+      0.8084978000955849
+    ],
+    "pr_auc": [
+      0.2739176542702494,
+      0.4199126950019665
+    ]
+  },
+  "operating_points": [
+    {
+      "threshold": 0.05,
+      "flagged": 28,
+      "flag_rate": 0.0559,
+      "precision_untreated": 1.0,
+      "recall_untreated": 0.0711,
+      "treated_missed_by_alert": 0
+    },
+    {
+      "threshold": 0.08,
+      "flagged": 62,
+      "flag_rate": 0.1238,
+      "precision_untreated": 1.0,
+      "recall_untreated": 0.1574,
+      "treated_missed_by_alert": 0
+    },
+    {
+      "threshold": 0.1,
+      "flagged": 89,
+      "flag_rate": 0.1776,
+      "precision_untreated": 0.9775,
+      "recall_untreated": 0.2208,
+      "treated_missed_by_alert": 2
+    },
+    {
+      "threshold": 0.12,
+      "flagged": 112,
+      "flag_rate": 0.2236,
+      "precision_untreated": 0.9464,
+      "recall_untreated": 0.269,
+      "treated_missed_by_alert": 6
+    },
+    {
+      "threshold": 0.15,
+      "flagged": 171,
+      "flag_rate": 0.3413,
+      "precision_untreated": 0.9357,
+      "recall_untreated": 0.4061,
+      "treated_missed_by_alert": 11
+    },
+    {
+      "threshold": 0.18,
+      "flagged": 213,
+      "flag_rate": 0.4251,
+      "precision_untreated": 0.9202,
+      "recall_untreated": 0.4975,
+      "treated_missed_by_alert": 17
+    },
+    {
+      "threshold": 0.2,
+      "flagged": 244,
+      "flag_rate": 0.487,
+      "precision_untreated": 0.9098,
+      "recall_untreated": 0.5635,
+      "treated_missed_by_alert": 22
+    },
+    {
+      "threshold": 0.25,
+      "flagged": 303,
+      "flag_rate": 0.6048,
+      "precision_untreated": 0.8779,
+      "recall_untreated": 0.6751,
+      "treated_missed_by_alert": 37
+    },
+    {
+      "threshold": 0.3,
+      "flagged": 356,
+      "flag_rate": 0.7106,
+      "precision_untreated": 0.8511,
+      "recall_untreated": 0.769,
+      "treated_missed_by_alert": 53
+    }
+  ],
+  "lift_table": [
+    {
+      "decile": 1,
+      "patients": 51,
+      "mean_pred": 0.0456,
+      "actual_treated": 0.0,
+      "untreated_rate": 1.0
+    },
+    {
+      "decile": 2,
+      "patients": 50,
+      "mean_pred": 0.091,
+      "actual_treated": 0.1,
+      "untreated_rate": 0.9
+    },
+    {
+      "decile": 3,
+      "patients": 50,
+      "mean_pred": 0.1305,
+      "actual_treated": 0.1,
+      "untreated_rate": 0.9
+    },
+    {
+      "decile": 4,
+      "patients": 50,
+      "mean_pred": 0.1539,
+      "actual_treated": 0.06,
+      "untreated_rate": 0.94
+    },
+    {
+      "decile": 5,
+      "patients": 50,
+      "mean_pred": 0.1889,
+      "actual_treated": 0.2,
+      "untreated_rate": 0.8
+    },
+    {
+      "decile": 6,
+      "patients": 50,
+      "mean_pred": 0.2271,
+      "actual_treated": 0.28,
+      "untreated_rate": 0.72
+    },
+    {
+      "decile": 7,
+      "patients": 50,
+      "mean_pred": 0.2714,
+      "actual_treated": 0.26,
+      "untreated_rate": 0.74
+    },
+    {
+      "decile": 8,
+      "patients": 50,
+      "mean_pred": 0.3142,
+      "actual_treated": 0.36,
+      "untreated_rate": 0.64
+    },
+    {
+      "decile": 9,
+      "patients": 50,
+      "mean_pred": 0.3552,
+      "actual_treated": 0.38,
+      "untreated_rate": 0.62
+    },
+    {
+      "decile": 10,
+      "patients": 50,
+      "mean_pred": 0.4568,
+      "actual_treated": 0.4,
+      "untreated_rate": 0.6
+    }
+  ],
+  "importance": [
+    {
+      "feature": "PATIENT_AGE",
+      "importance": 0.0714,
+      "sd": 0.022
+    },
+    {
+      "feature": "LOCATION_TYPE",
+      "importance": 0.0635,
+      "sd": 0.0172
+    },
+    {
+      "feature": "PHYSICIAN_TYPE",
+      "importance": 0.008,
+      "sd": 0.0153
+    },
+    {
+      "feature": "PHYSICIAN_STATE",
+      "importance": 0.0036,
+      "sd": 0.0215
+    },
+    {
+      "feature": "PATIENT_GENDER",
+      "importance": -0.0022,
+      "sd": 0.0032
+    },
+    {
+      "feature": "NUM_CONDITIONS",
+      "importance": -0.005,
+      "sd": 0.0103
+    }
+  ],
+  "subgroups": [
+    {
+      "dimension": "PATIENT_GENDER",
+      "group": "F",
+      "n": 474,
+      "actual_treated": 0.1603,
+      "mean_pred": 0.1665,
+      "roc_auc": 0.7426
+    },
+    {
+      "dimension": "PATIENT_GENDER",
+      "group": "M",
+      "n": 330,
+      "actual_treated": 0.1515,
+      "mean_pred": 0.1637,
+      "roc_auc": 0.7968
+    },
+    {
+      "dimension": "age_band",
+      "group": "13-39",
+      "n": 212,
+      "actual_treated": 0.0802,
+      "mean_pred": 0.0902,
+      "roc_auc": 0.6653
+    },
+    {
+      "dimension": "age_band",
+      "group": "40-64",
+      "n": 291,
+      "actual_treated": 0.1753,
+      "mean_pred": 0.1995,
+      "roc_auc": 0.6746
+    },
+    {
+      "dimension": "age_band",
+      "group": "65+",
+      "n": 224,
+      "actual_treated": 0.2589,
+      "mean_pred": 0.248,
+      "roc_auc": 0.7051
+    },
+    {
+      "dimension": "PHYSICIAN_GROUP",
+      "group": "ACUTE_CARE",
+      "n": 120,
+      "actual_treated": 0.1167,
+      "mean_pred": 0.1148,
+      "roc_auc": 0.7766
+    },
+    {
+      "dimension": "PHYSICIAN_GROUP",
+      "group": "APP",
+      "n": 182,
+      "actual_treated": 0.1374,
+      "mean_pred": 0.1422,
+      "roc_auc": 0.7641
+    },
+    {
+      "dimension": "PHYSICIAN_GROUP",
+      "group": "PRIMARY_CARE",
+      "n": 319,
+      "actual_treated": 0.21,
+      "mean_pred": 0.2402,
+      "roc_auc": 0.7368
+    },
+    {
+      "dimension": "PHYSICIAN_GROUP",
+      "group": "SPECIALIST",
+      "n": 67,
+      "actual_treated": 0.1493,
+      "mean_pred": 0.1402,
+      "roc_auc": 0.8561
+    },
+    {
+      "dimension": "PHYSICIAN_GROUP",
+      "group": "UNKNOWN",
+      "n": 116,
+      "actual_treated": 0.0862,
+      "mean_pred": 0.0625,
+      "roc_auc": 0.5651
+    },
+    {
+      "dimension": "INSURANCE_TYPE",
+      "group": "COMMERCIAL",
+      "n": 653,
+      "actual_treated": 0.1455,
+      "mean_pred": 0.1552,
+      "roc_auc": 0.772
+    },
+    {
+      "dimension": "INSURANCE_TYPE",
+      "group": "MEDICARE",
+      "n": 138,
+      "actual_treated": 0.2246,
+      "mean_pred": 0.2228,
+      "roc_auc": 0.6886
+    }
+  ]
+}
