@@ -7,9 +7,17 @@ export async function worklist(root, nav) {
   const kpis = h("div", { class: "grid g4", style: "margin-bottom:16px" });
 
   const field = (label, control) => h("label", { class: "f" }, label, control);
-  const sel = (key, opts) =>
-    h("select", { onchange: (e) => { state[key] = e.target.value; state.page = 1; load(); } },
-      opts.map(([v, t]) => h("option", { value: v, selected: String(state[key]) === v }, t)));
+  const controls = {};
+  const sel = (key, opts) => (controls[key] =
+    h("select", { onchange: (e) => { state[key] = e.target.value; reconcile(key); state.page = 1; load(); } },
+      opts.map(([v, t]) => h("option", { value: v, selected: String(state[key]) === v }, t))));
+  // Alerts fire only when P(treated) < threshold, i.e. tier LOW, so MEDIUM/HIGH never coexist with "Alerts only".
+  const reconcile = (changed) => {
+    const nonAlertTier = state.tier === "MEDIUM" || state.tier === "HIGH";
+    if (!nonAlertTier || state.alerts_only !== "true") return;
+    if (changed === "tier") { state.alerts_only = ""; controls.alerts_only.value = ""; }
+    else { state.tier = ""; controls.tier.value = ""; }
+  };
   const search = h("input", { type: "search", placeholder: "Patient ID...", "aria-label": "Patient ID prefix",
     oninput: debounce((e) => { state.q = e.target.value; state.page = 1; load(); }) });
 
@@ -24,6 +32,7 @@ export async function worklist(root, nav) {
         field("Min age", sel("min_age", [["", "Any"], ["40", "40+"], ["65", "65+"]])),
         field("Sort", sel("sort", [["likelihood_asc", "Lowest likelihood"], ["likelihood_desc", "Highest likelihood"], ["age_desc", "Oldest first"], ["id_asc", "Patient ID"]])),
         field("Search", search)),
+      h("p", { class: "note" }, "Alerts are always Low tier (P(treated) below the alert threshold). Choosing Medium or High switches the view to All patients."),
       results));
 
   async function load() {
