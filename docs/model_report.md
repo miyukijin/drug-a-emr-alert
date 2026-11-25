@@ -35,6 +35,7 @@ Four candidate models x four feature sets, repeated stratified 5-fold CV (3 repe
 ## 3b. Why this model
 - Tabular data with mixed categorical + numeric features and a non-linear age effect (treatment peaks at 65-74) -> gradient-boosted trees are the standard strong baseline and need no hand-crafted transforms.
 - It beat logistic regression, logistic+age-spline and random forest on CV PR-AUC and log-loss, but only slightly: **the honest reading is that signal is limited and model family matters less than features/data.** We therefore prefer the simplest feature set and keep the model small and fast.
+- XGBoost and LightGBM were benchmarked with the same split and CV (`ml/benchmark_gbm.py`, `reports/gbm_benchmark_cv.csv`). Regularised LightGBM ties HistGB (CV PR-AUC 0.358 vs 0.359; hold-out ROC-AUC 0.764 vs 0.766) and regularised XGBoost is slightly lower (0.349); with default settings both overfit this 3,216-row training set (CV PR-AUC 0.30-0.31). HistGB is scikit-learn's LightGBM-style histogram GBDT, so it is kept: same accuracy, no extra runtime dependency.
 - Output is a probability, so the alert threshold is a business dial (alert burden vs. coverage) rather than a retrain.
 - Trade-offs accepted: less transparent than logistic regression (mitigated with occlusion-based per-patient drivers and permutation importance); depends on historical prescribing behaviour (see limitations).
 

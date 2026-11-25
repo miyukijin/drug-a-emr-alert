@@ -1,0 +1,11 @@
+features,model,cv_roc_auc,cv_pr_auc,cv_pr_auc_sd,cv_logloss,holdout_roc_auc,holdout_pr_auc,holdout_roc_auc_eligible
+core (model_table spec),Gradient boosting (HistGB) - served,0.7555,0.3591,0.0357,0.3763,0.7659,0.3358,0.7248
+core (model_table spec),XGBoost (default),0.702,0.2963,0.0358,0.5485,0.712,0.2808,0.6256
+core (model_table spec),XGBoost (regularised),0.7501,0.3488,0.0397,0.3803,0.7538,0.3258,0.7087
+core (model_table spec),LightGBM (default),0.7171,0.3135,0.0291,0.5038,0.7158,0.2797,0.6309
+core (model_table spec),LightGBM (regularised),0.7563,0.3583,0.0378,0.3767,0.7644,0.3297,0.7206
+core + all extras,Gradient boosting (HistGB) - served,0.7553,0.3527,0.0367,0.377,0.7541,0.3051,0.7014
+core + all extras,XGBoost (default),0.711,0.2916,0.0218,0.5855,0.6867,0.2437,0.6155
+core + all extras,XGBoost (regularised),0.7479,0.3412,0.0332,0.3822,0.7427,0.2986,0.6888
+core + all extras,LightGBM (default),0.7249,0.2975,0.0174,0.5265,0.6842,0.2417,0.6118
+core + all extras,LightGBM (regularised),0.7538,0.3489,0.0365,0.3787,0.7512,0.2985,0.695
