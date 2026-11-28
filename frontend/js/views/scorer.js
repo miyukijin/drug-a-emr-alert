@@ -1,5 +1,6 @@
 import { api } from "../api.js";
 import { h, titleCase, errorBox } from "../dom.js";
+import { TOOLTIP } from "../definitions.js";
 import { predictionPanel } from "./patient_card.js";
 
 export async function scorer(root) {
@@ -21,7 +22,7 @@ export async function scorer(root) {
     h("div", { class: "grid g3" },
       field("Age at diagnosis", h("input", { name: "patient_age", type: "number", min: 0, max: 120, value: 71, required: true })),
       field("Gender", h("select", { name: "patient_gender" }, ["F", "M", "U"].map((g) => h("option", { value: g }, { F: "Female", M: "Male", U: "Unknown" }[g])))),
-      field("High-risk conditions (count)", h("input", { name: "num_conditions", type: "number", min: 0, max: 10, value: 2, required: true })),
+      field("High-risk conditions (count)", h("input", { name: "num_conditions", type: "number", min: 0, max: 4, value: 2, required: true, title: TOOLTIP.conditions })),
       field("Diagnosing physician specialty", select("physician_type", cats.PHYSICIAN_TYPE, "FAMILY MEDICINE")),
       field("Physician state", select("physician_state", cats.PHYSICIAN_STATE, "CA")),
       field("Care setting", select("location_type", cats.LOCATION_TYPE, "OFFICE"))),

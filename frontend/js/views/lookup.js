@@ -1,5 +1,6 @@
 import { api } from "../api.js";
 import { h, titleCase, errorBox } from "../dom.js";
+import { TOOLTIP } from "../definitions.js";
 import { predictionPanel, emrPreview } from "./patient_card.js";
 
 export async function lookup(root, nav, arg) {
@@ -21,7 +22,7 @@ export async function lookup(root, nav, arg) {
             h("dl", { class: "kv" },
               h("dt", {}, "Disease X diagnosed"), h("dd", {}, p.diagnosis_date),
               h("dt", {}, "Age / gender"), h("dd", {}, `${f.patient_age} / ${f.patient_gender}`),
-              h("dt", {}, "High-risk conditions"), h("dd", {}, f.num_conditions),
+              h("dt", { title: TOOLTIP.conditions }, "High-risk conditions (count)"), h("dd", {}, f.num_conditions),
               h("dt", {}, "Diagnosed by"), h("dd", {}, titleCase(f.physician_type)),
               h("dt", {}, "Physician state"), h("dd", {}, f.physician_state),
               h("dt", {}, "Care setting"), h("dd", {}, titleCase(f.location_type)))),

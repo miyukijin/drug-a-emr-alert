@@ -1,5 +1,6 @@
 import { api } from "../api.js";
 import { h, pct, errorBox } from "../dom.js";
+import { definitionsPanel } from "../definitions.js";
 
 export async function about(root) {
   try {
@@ -7,7 +8,8 @@ export async function about(root) {
     const row = (s) => h("tr", {}, h("td", {}, s.slice), h("td", {}, s.n), h("td", {}, pct(s.treated_rate)), h("td", {}, s.roc_auc.toFixed(3)), h("td", {}, s.pr_auc.toFixed(3)));
     root.replaceChildren(h("h1", {}, "About the model"),
       h("p", { class: "sub" }, "Transparent by design: what the model is, how it was checked, and what it cannot tell you."),
-      h("div", { class: "grid g2" },
+      definitionsPanel(),
+      h("div", { class: "grid g2", style: "margin-top:16px" },
         h("div", { class: "card" }, h("dl", { class: "kv" },
           h("dt", {}, "Algorithm"), h("dd", {}, m.model_name), h("dt", {}, "Version"), h("dd", {}, m.version),
           h("dt", {}, "Features"), h("dd", {}, m.feature_set), h("dt", {}, "Trained on"), h("dd", {}, `${m.trained_rows.toLocaleString()} patients`),

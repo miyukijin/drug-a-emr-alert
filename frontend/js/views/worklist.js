@@ -1,5 +1,6 @@
 import { api } from "../api.js";
 import { h, pct, titleCase, tierTag, likelihoodBar, errorBox } from "../dom.js";
+import { TOOLTIP, definitionsCallout, definitionsPanel } from "../definitions.js";
 
 export async function worklist(root, nav) {
   const state = { alerts_only: "true", tier: "", min_age: "", q: "", sort: "likelihood_asc", page: 1, page_size: 20 };
@@ -24,6 +25,7 @@ export async function worklist(root, nav) {
   root.replaceChildren(
     h("h1", {}, "Alert worklist"),
     h("p", { class: "sub" }, "Eligible Disease X patients who are unlikely to receive Drug A, lowest treatment likelihood first. Open a patient to see why."),
+    definitionsCallout(),
     kpis,
     h("div", { class: "card" },
       h("div", { class: "toolbar" },
@@ -32,7 +34,8 @@ export async function worklist(root, nav) {
         field("Min age", sel("min_age", [["", "Any"], ["40", "40+"], ["65", "65+"]])),
         field("Sort", sel("sort", [["likelihood_asc", "Lowest likelihood"], ["likelihood_desc", "Highest likelihood"], ["age_desc", "Oldest first"], ["id_asc", "Patient ID"]])),
         field("Search", search)),
-      h("p", { class: "note" }, "Alerts are always Low tier (P(treated) below the alert threshold). Choosing Medium or High switches the view to All patients."),
+      h("p", { class: "note" }, "Alerts are patients who are eligible and in the Low likelihood tier (P(treated) below the alert threshold). Choosing Medium or High switches the view to All patients."),
+      definitionsPanel({ compact: true }),
       results));
 
   async function load() {
@@ -43,16 +46,26 @@ export async function worklist(root, nav) {
       const data = await api.patients(params);
       if (!data.items.length) { results.replaceChildren(h("div", { class: "empty" }, "No patients match these filters.")); return; }
       const pages = Math.ceil(data.total / data.page_size);
+      const headers = [
+        ["Patient"], ["Diagnosed"], ["Age / sex"], ["Conditions", TOOLTIP.conditions],
+        ["Diagnosed by"], ["Setting"],
+        ["Eligible", TOOLTIP.eligible],
+        ["P(treated)", TOOLTIP.p_treated],
+        ["Tier"], ["Alert"],
+      ];
       results.replaceChildren(
         h("table", {},
-          h("thead", {}, h("tr", {}, ["Patient", "Diagnosed", "Age / sex", "Conditions", "Diagnosed by", "Setting", "P(treated)", "Tier", "Alert"].map((t) => h("th", {}, t)))),
+          h("thead", {}, h("tr", {}, headers.map(([t, tip]) => h("th", tip ? { title: tip } : {}, t)))),
           h("tbody", {}, data.items.map((p) => h("tr", { class: "row", tabindex: 0, onclick: () => nav("lookup", p.patient_id),
             onkeydown: (e) => e.key === "Enter" && nav("lookup", p.patient_id) },
             h("td", {}, `#${p.patient_id}`), h("td", {}, p.diagnosis_date), h("td", {}, `${p.patient_age} / ${p.patient_gender}`),
             h("td", {}, p.num_conditions), h("td", {}, titleCase(p.physician_type)), h("td", {}, titleCase(p.location_type)),
+            h("td", {}, p.eligible
+              ? h("span", { class: "tag HIGH" }, "Eligible")
+              : h("span", { class: "tag na" }, "Not eligible")),
             h("td", {}, h("div", { style: "display:flex;gap:8px;align-items:center" }, pct(p.likelihood_treated), likelihoodBar(p.likelihood_treated))),
             h("td", {}, tierTag(p.tier)),
-            h("td", {}, p.alert ? h("span", { class: "tag LOW" }, "ALERT") : h("span", { class: "tag na" }, p.eligible ? "-" : "Not eligible")))))),
+            h("td", {}, p.alert ? h("span", { class: "tag LOW" }, "ALERT") : h("span", { class: "tag na" }, "-")))))),
         h("div", { class: "pager" },
           `${data.total.toLocaleString()} patients`,
           h("button", { class: "btn ghost", disabled: state.page <= 1, onclick: () => { state.page--; load(); } }, "Previous"),

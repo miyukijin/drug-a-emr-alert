@@ -33,6 +33,17 @@ dl.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;margin:0}dl.kv dt
 .driver .b i{position:absolute;top:0;height:100%;border-radius:99px}.driver.raises .b i{background:var(--green)}.driver.lowers .b i{background:var(--red)}.driver .b:after{content:'';position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:#9aa8c2}
 .empty,.err,.loading{padding:30px;text-align:center;color:var(--mute)}.err{color:var(--red);background:var(--redbg);border-radius:12px}
 .note{font-size:12px;color:var(--mute);margin-top:8px}.muted{color:var(--mute)}
+.defs-callout{margin:16px 0 20px;padding:16px 18px;border:2px solid var(--brand);border-radius:12px;background:linear-gradient(180deg,#f0f6ff 0%,#fff 100%);box-shadow:0 2px 8px rgba(22,88,160,.08)}
+.defs-callout-title{margin:0 0 4px;font-size:17px;color:var(--brand)}.defs-callout-lead{margin:0 0 12px;font-size:13px;color:var(--mute)}
+.defs-callout-row{display:grid;grid-template-columns:120px 1fr;gap:8px 14px;padding:10px 0;border-top:1px solid var(--line);font-size:13px}
+.defs-callout-row:first-of-type{border-top:none;padding-top:0}.defs-callout-term{font-weight:700;color:var(--ink)}
+.defs-callout-desc{color:var(--mute);line-height:1.45}.defs-callout a{color:var(--brand);font-weight:600}
+.defs.compact{margin:12px 0 0;border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:#f8fafd}
+.defs.compact summary{font-weight:600;font-size:13px;cursor:pointer;color:var(--brand)}
+.defs-body{margin-top:10px}.def-term{margin-top:14px}.def-term:first-child{margin-top:0}
+.def-term h3{margin:0 0 6px;font-size:15px;color:var(--ink)}.def-term p{margin:0 0 6px;font-size:13px;color:var(--mute)}
+.def-term ul{margin:0;padding-left:18px;font-size:13px;color:var(--mute)}.def-term li{margin:4px 0}
+.def-term code{font-size:12px;background:#eef2f9;padding:1px 5px;border-radius:4px;color:var(--ink)}
 .emr{border:2px solid #f2b8b3;background:#fff;border-radius:10px;padding:0;overflow:hidden;box-shadow:0 6px 18px rgba(200,55,45,.12)}
 .emr .h{background:var(--red);color:#fff;padding:8px 14px;font-weight:600;font-size:13px}.emr .b{padding:12px 14px;font-size:14px}
 .emr ul{margin:6px 0 0;padding-left:18px}

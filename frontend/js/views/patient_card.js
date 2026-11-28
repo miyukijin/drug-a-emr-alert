@@ -1,4 +1,5 @@
 import { h, pct, tierTag } from "../dom.js";
+import { TOOLTIP } from "../definitions.js";
 
 export function predictionPanel(pred) {
   const status = !pred.eligible ? "na" : pred.alert ? "on" : "off";
@@ -9,7 +10,7 @@ export function predictionPanel(pred) {
       h("div", { class: "muted" }, pred.eligible ? `Eligible: ${pred.eligibility_reasons.join("; ")}` : pred.eligibility_reasons.join("; ")))),
     h("div", { class: "card" },
       h("div", { style: "display:flex;gap:28px;align-items:center;flex-wrap:wrap" },
-        h("div", {}, h("div", { class: "muted" }, "Likelihood of receiving Drug A"), h("div", { class: "big" }, pct(pred.likelihood_treated, 1))),
+        h("div", {}, h("div", { class: "muted", title: TOOLTIP.p_treated }, "P(treated)"), h("div", { class: "big" }, pct(pred.likelihood_treated, 1))),
         h("div", {}, h("div", { class: "muted" }, "Tier"), tierTag(pred.tier)),
         h("div", {}, h("div", { class: "muted" }, "Alert threshold"), `< ${pct(pred.alert_threshold, 0)}`)),
       pred.unseen_categories.length ? h("div", { class: "note" }, `Values not seen in training (treated as 'other'): ${pred.unseen_categories.join(", ")}`) : null),
