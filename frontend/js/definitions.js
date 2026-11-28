@@ -77,11 +77,15 @@ const TERMS = [
   },
 ];
 
+function mount(part) {
+  return typeof part === "string" ? part : part.cloneNode(true);
+}
+
 function termBlock({ term, body, bullets }) {
   return h("div", { class: "def-term" },
     h("h3", {}, term),
-    h("p", {}, ...body),
-    h("ul", {}, ...bullets.map((b) => h("li", {}, ...(Array.isArray(b) ? b : [b])))));
+    h("p", {}, ...body.map(mount)),
+    h("ul", {}, ...bullets.map((b) => h("li", {}, ...(Array.isArray(b) ? b.map(mount) : [mount(b)])))));
 }
 
 /** Always-visible summary on the worklist (not collapsed). */
